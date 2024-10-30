@@ -1,4 +1,4 @@
-package com.japan.nihonjft;
+package com.japan.nihonjft.ui.account;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.japan.nihonjft.R;
 
 /**
  * A simple {@link Fragment} subclass.
