@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "922535884196",
+    "project_id": "nihonjft-d02a3",
+    "storage_bucket": "nihonjft-d02a3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922535884196:android:baec64ccbdfa7743c1bd31",
+        "android_client_info": {
+          "package_name": "com.japan.nihonjft"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ1s2L-iHjWH-oE98Upidb_MuiPfij91M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
