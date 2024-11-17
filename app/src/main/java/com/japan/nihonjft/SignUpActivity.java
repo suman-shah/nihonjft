@@ -2,10 +2,12 @@ package com.japan.nihonjft;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +26,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class SignUpActivity extends AppCompatActivity {
     private EditText username,emailID,password,conform_password;
     private Button signup_button;
@@ -31,6 +35,8 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageView back_button;
     private FirebaseAuth mAuth;
     private String emailStr,passwordStr,usernameStr,conformPasswordStr;
+    private Dialog progressDialog;
+    private TextView dialogtext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,12 @@ public class SignUpActivity extends AppCompatActivity {
         loginBtnfromSignup = findViewById(R.id.loginBtnfromSignup);
         back_button = findViewById(R.id.back_button);
         mAuth = FirebaseAuth.getInstance();
+        progressDialog = new Dialog(SignUpActivity.this);
+        progressDialog.setContentView(R.layout.dialog_layout);
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogtext = progressDialog.findViewById(R.id.dialogtext);
+        dialogtext.setText("Please Wait...");
 
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,16 +129,19 @@ private boolean validateData()
 
 
     private void signupNewUser() {
+        progressDialog.show();
         mAuth.createUserWithEmailAndPassword(emailStr, passwordStr)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(SignUpActivity.this, "Sign Up:success", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
+                            progressDialog.dismiss();
                             Toast.makeText(SignUpActivity.this, "Sign Up:failure", Toast.LENGTH_SHORT).show();
 
                         }
