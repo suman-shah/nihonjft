@@ -1,4 +1,5 @@
 <resources>
+    <string name="default_web_client_id">922535884196-tqi5fkvjdp3fs7aogc4051456199gb6f.apps.googleusercontent.com</string>
     <string name="app_name">NihonJFT</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
