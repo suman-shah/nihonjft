@@ -83,6 +83,7 @@ public class AccountFragment extends Fragment {
                         .requestIdToken(getString(R.string.default_web_client_id))
                         .requestEmail()
                         .build();
+
                 GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
                 mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
