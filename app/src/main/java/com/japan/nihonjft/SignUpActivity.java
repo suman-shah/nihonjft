@@ -136,10 +136,25 @@ private boolean validateData()
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(SignUpActivity.this, "Sign Up:success", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+
+                            DbQuery.createUserData(emailStr,usernameStr, new MyCompleteListner(){
+                                @Override
+                                public void onSucess() {
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+
+                                }
+                                @Override
+                                public void onFailure() {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(SignUpActivity.this, "Sign Up:failure", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                            });
+
                         } else {
                             progressDialog.dismiss();
                             Toast.makeText(SignUpActivity.this, "Sign Up:failure", Toast.LENGTH_SHORT).show();
