@@ -1,5 +1,6 @@
 package com.japan.nihonjft.ui.category;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.japan.nihonjft.R;
+import com.japan.nihonjft.TestActivity;
 
 import java.util.List;
 
@@ -42,6 +44,18 @@ public class CategoryAdapter extends BaseAdapter {
         } else {
             myView = convertView;
         }
+
+        myView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle item click here
+                Intent intent = new Intent(v.getContext(), TestActivity.class);
+                intent.putExtra("cat_index", position);
+                v.getContext().startActivity(intent);
+
+            }
+        });
+
         TextView catName = myView.findViewById(R.id.cat_name);
         TextView catNoOfTests = myView.findViewById(R.id.cat_no_of_tests);
         catName.setText(catList.get(position).getName());

@@ -14,10 +14,16 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <!-- Theme for white toolbar icons -->
+    <style name="Theme.NihonJFT.WhiteToolbarIcons" parent="Theme.NihonJFT">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
     <style name="Theme.NihonJFT.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
     <style name="Theme.NihonJFT.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.NihonJFT.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

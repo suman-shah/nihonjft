@@ -13,6 +13,10 @@
         android:theme="@style/Theme.NihonJFT"
         tools:targetApi="31">
         <activity
+            android:name=".TestActivity"
+            android:theme="@style/Theme.NihonJFT.WhiteToolbarIcons"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
