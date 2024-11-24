@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.japan.nihonjft.DbQuery;
 import com.japan.nihonjft.R;
 import com.japan.nihonjft.TestActivity;
 
@@ -49,8 +50,10 @@ public class CategoryAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // Handle item click here
+                DbQuery.g_selected_cat_index = position;
+
                 Intent intent = new Intent(v.getContext(), TestActivity.class);
-                intent.putExtra("cat_index", position);
+
                 v.getContext().startActivity(intent);
 
             }

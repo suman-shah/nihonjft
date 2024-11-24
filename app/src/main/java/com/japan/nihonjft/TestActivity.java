@@ -1,7 +1,11 @@
 package com.japan.nihonjft;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +20,9 @@ import java.util.List;
 
 public class TestActivity extends AppCompatActivity {
     private RecyclerView test_recycler_view;
-    private List<TestModel> testList;
+    private TestAdapter adapter;
+    private Dialog progressDialog;
+    private TextView dialogText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,33 +37,48 @@ public class TestActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(true);
 
             // Retrieve category index and set title
-            int cat_index = getIntent().getIntExtra("cat_index", 0);
-            getSupportActionBar().setTitle(DbQuery.g_catList.get(cat_index).getName());
+
+
+            getSupportActionBar().setTitle(DbQuery.g_catList.get(DbQuery.g_selected_cat_index).getName());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         test_recycler_view = findViewById(R.id.test_recycler_view);
+        progressDialog = new Dialog(TestActivity.this);
+        progressDialog.setContentView(R.layout.dialog_layout);
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogText = progressDialog.findViewById(R.id.dialogtext);
+        dialogText.setText("Loading Test Data...");
+
+        progressDialog.show();
 
         // Set up RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         test_recycler_view.setLayoutManager(layoutManager);
 
-        loadTestData();
+        //loadTestData();
+        DbQuery.loadTestData(new MyCompleteListener() {
+            @Override
+            public void onSuccess() {
+                TestAdapter adapter = new TestAdapter(DbQuery.g_testList);
+                test_recycler_view.setAdapter(adapter);
+                progressDialog.dismiss();
 
-        TestAdapter adapter = new TestAdapter(testList);
-        test_recycler_view.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure() {
+                Toast.makeText(TestActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 
-    private void loadTestData() {
-        // Populate testList with your data
-        testList = new ArrayList<>();
-        testList.add(new TestModel("1", 100, 60));
-        testList.add(new TestModel("2", 50, 75));
-        testList.add(new TestModel("3", 200, 90));
-        testList.add(new TestModel("4", 250, 105));
-        testList.add(new TestModel("5", 300, 120));
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
