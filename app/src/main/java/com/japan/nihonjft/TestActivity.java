@@ -32,7 +32,7 @@ public class TestActivity extends AppCompatActivity {
 
             // Retrieve category index and set title
             int cat_index = getIntent().getIntExtra("cat_index", 0);
-            getSupportActionBar().setTitle(CategoryFragment.catList.get(cat_index).getName());
+            getSupportActionBar().setTitle(DbQuery.g_catList.get(cat_index).getName());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 

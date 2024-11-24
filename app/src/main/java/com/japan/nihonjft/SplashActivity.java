@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,10 +46,23 @@ public class SplashActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (mAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                    return;
+
+                    DbQuery.loadCategories(new MyCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Toast.makeText(SplashActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
                 }
                 else
                     {

@@ -1,5 +1,7 @@
 package com.japan.nihonjft.ui.category;
 
+import static com.japan.nihonjft.DbQuery.g_catList;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -35,7 +37,6 @@ public class CategoryFragment extends Fragment {
     }
 
     private GridView catView;
-    public static List<CategoryModel> catList = new ArrayList<>();
 
     /**
      * Use this factory method to create a new instance of
@@ -71,8 +72,10 @@ public class CategoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
 
         catView = view.findViewById(R.id.cat_grid);
-        loadCategories();
-        CategoryAdapter adapter = new CategoryAdapter(catList);
+
+        //loadCategories();
+
+        CategoryAdapter adapter = new CategoryAdapter(g_catList);
         catView.setAdapter(adapter);
 
 
@@ -80,17 +83,6 @@ public class CategoryFragment extends Fragment {
 
         return view;
     }
-    private void loadCategories() {
-        catList.clear();
-        catList.add(new CategoryModel("1", "Category 1", 10));
-        catList.add(new CategoryModel("2", "Category 2", 20));
-        catList.add(new CategoryModel("3", "Category 3", 30));
-        catList.add(new CategoryModel("4", "Category 4", 40));
-        catList.add(new CategoryModel("5", "Category 5", 50));
-        catList.add(new CategoryModel("6", "Category 6", 60));
-        catList.add(new CategoryModel("7", "Category 7", 70));
-        catList.add(new CategoryModel("8", "Category 8", 80));
 
-    }
 
 }
